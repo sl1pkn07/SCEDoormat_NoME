@@ -38,7 +38,8 @@ void PrintUsage(char *EXEpath)
 	printf("That's why it needs a bigass KRYPTO.KHN (pre-encrypted stuff) to work.\n");
 	printf("\n");
 
-	system("pause");
+	printf("Press 'Enter' to continue: ... ");
+	while ( getchar() != '\n');
 }
 
 int main(int argc, char **argv)
@@ -89,20 +90,21 @@ int main(int argc, char **argv)
 			//------------------------------
 
 			if(GetROUNDkey() != 0) {
-				close(INPUT_ELF);
+				fclose(INPUT_ELF);
 				printf("KRYPTO.KHN  == %s\n", argv[1]);
 				printf("               (%d bytes)\n", KRYPTO_KHN_SIZE);
 				printf("---------------\n\n");
 				kHnIdentifier();
-				close(KRYPTO_KHN);
+				fclose(KRYPTO_KHN);
 				free(KRYPTO_KHN_PATH);
 				ReleaseCoDecStruct();
 				printf("\n");
-				system("pause");
+				printf("Press 'Enter' to continue: ... ");
+				while ( getchar() != '\n');
 				printf("\n");
 				return 1;
 			}
-			close(KRYPTO_KHN);
+			fclose(KRYPTO_KHN);
 			free(KRYPTO_KHN_PATH);
 			ReleaseCoDecStruct();
 			KRYPTO_KHN_SIZE = 0;
@@ -111,7 +113,7 @@ int main(int argc, char **argv)
 			kHnHashedBlockCount = 0;
 			kHnDESCsize = 0;
 		}
-		close(INPUT_ELF);
+		fclose(INPUT_ELF);
 		ReleaseCoDecStruct();
 	}
 
@@ -127,7 +129,7 @@ int main(int argc, char **argv)
 	printf("               (%d bytes)\n", INPUT_ELF_SIZE);
 	if(INPUT_ELF_SIZE == 0) {
 		printf("               CAN'T BE BLANK, FATAL ERROR\n");
-		close(INPUT_ELF);
+		fclose(INPUT_ELF);
 		return -1;
 	}
 	printf("---------------\n");
@@ -147,7 +149,7 @@ int main(int argc, char **argv)
 	printf("%s\n", OUTPUT_KELF_PATH);
 	if(!(OUTPUT_KELF = fopen(OUTPUT_KELF_PATH, "wb"))) {
 		printf("               CAN'T CREATE\n");
-		close(INPUT_ELF);
+		fclose(INPUT_ELF);
 		free(OUTPUT_KELF_PATH);
 		return -1;
 	}
@@ -178,8 +180,8 @@ int main(int argc, char **argv)
 	printf("%s\n", KRYPTO_KHN_PATH);
 	if(!(KRYPTO_KHN = fopen(KRYPTO_KHN_PATH, "rb"))) {
 		printf("               CAN'T OPEN, FATAL ERROR\n");
-		close(INPUT_ELF);
-		close(OUTPUT_KELF);
+		fclose(INPUT_ELF);
+		fclose(OUTPUT_KELF);
 		free(OUTPUT_KELF_PATH);
 		free(KRYPTO_KHN_PATH);
 		return -1;
@@ -191,9 +193,9 @@ int main(int argc, char **argv)
 	printf("---------------\n\n");
 
 	if(kHnIdentifier() != 1) {
-		close(INPUT_ELF);
-		close(OUTPUT_KELF);
-		close(KRYPTO_KHN);
+		fclose(INPUT_ELF);
+		fclose(OUTPUT_KELF);
+		fclose(KRYPTO_KHN);
 		free(OUTPUT_KELF_PATH);
 		free(KRYPTO_KHN_PATH);
 		ReleaseCoDecStruct();
@@ -202,9 +204,9 @@ int main(int argc, char **argv)
 
 	if(makeKELF() == 1) printf("Completed :) !\n");
 
-	close(INPUT_ELF);
-	close(OUTPUT_KELF);
-	close(KRYPTO_KHN);
+	fclose(INPUT_ELF);
+	fclose(OUTPUT_KELF);
+	fclose(KRYPTO_KHN);
 	free(OUTPUT_KELF_PATH);
 	free(KRYPTO_KHN_PATH);
 	ReleaseCoDecStruct();

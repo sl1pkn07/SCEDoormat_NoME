@@ -4,7 +4,7 @@
 #include <memory.h>
 #include <inttypes.h>
 #include <stdio.h>
-#include "../public/scedoormat.h"
+#include "scedoormat.h"
 
 
 int Round_ELF_Size()

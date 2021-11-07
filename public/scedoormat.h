@@ -1,3 +1,6 @@
+#ifndef __SCEDOORMAT_H__
+#define __SCEDOORMAT_H__
+
 struct CoDecStuff {
 	uint8_t kHnROUNDkey[8];
 	uint8_t data[0x10000];
@@ -54,3 +57,5 @@ int makeKELF();
 int Round_ELF_Size();
 int Calc_KELF_Quantity();
 int Calc_KRYPTO_KHN_Content_Size();
+
+#endif
